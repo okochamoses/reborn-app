@@ -11,13 +11,13 @@ class Login extends Component {
   }
 
   async handleSubmit() {
-    const token = await login(this.state.username, this.state.password);
+    const response = await login(this.state.username, this.state.password, this.props.navigation);
 
-    if (token !== null) {
+    if (response !== null) {
       // save token to asynstorage
-      console.log("token received");
       // log user in to dashboard
-      this.props.navigation.navigate("AlertModal");
+      console.log(response);
+      this.props.navigation.navigate("AlertModal", { message: response.message });
     }
   }
 
@@ -52,7 +52,7 @@ class Login extends Component {
               type="password"
             />
 
-            <Button onPress={() => this.handleSubmit()} title="SIGN IN"></Button>
+            <Button onPress={() => this.handleSubmit()} title="SIGN IN" rounded primary></Button>
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 50 }}>
               <Text

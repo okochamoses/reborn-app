@@ -16,7 +16,7 @@ class ForgotPassword extends Component {
           {/* Form Section */}
           <View style={{ flex: 1, justifyContent: "center" }}>
             <Input placeholder="john@example.com" />
-            <Button title="RESET PASSWORD"></Button>
+            <Button title="RESET PASSWORD" lg primary rounded></Button>
           </View>
         </View>
       </ImageBackground>

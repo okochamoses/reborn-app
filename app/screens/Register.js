@@ -32,7 +32,7 @@ class Register extends Component {
             <Input type="phone-pad" placeholder="Phone" validate />
             <Input placeholder="Password" type="password"></Input>
             <Input placeholder="Confirm Password" type="password"></Input>
-            <Button title="SIGN UP"></Button>
+            <Button title="SIGN UP" lg primary></Button>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ color: "#ffffff", alignSelf: "center" }}>Read the following terms and conditions.</Text>

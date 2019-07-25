@@ -2,10 +2,9 @@ import axios from "axios";
 
 const baseUrl = "http://reborn-sylvester.herokuapp.com/api";
 
-const login = async (username, password) => {
+const login = async (username, password, navigator) => {
   const response = await makeRequest("post", "/customers/authenticate", { username, password });
-  console.log(response);
-  return;
+  return response;
 };
 
 const handleResponse = response => {
@@ -35,6 +34,12 @@ const makeRequest = async (type, url, data) => {
   if (response.status === 500) {
     // display error message
   }
+
+  if (response.status === 401) {
+    // stop execution and delete jwt
+    // popup message saying session expired
+  }
+
   console.log(response);
   return handleResponse(response.data);
 };
