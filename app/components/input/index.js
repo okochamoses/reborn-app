@@ -38,8 +38,8 @@ class Input extends Component {
                 style={styles.input}
                 onChangeText={text => {
                   this.setState({ text });
+                  // this.props.validate ? this.validateEntry(text, this.props.type) : "";
                 }}
-                value={this.state.text}
                 placeholder={this.props.placeholder}
                 placeholderTextColor="#46444C"
                 {...this.props}

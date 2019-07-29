@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, ImageBackground, Image, Text, TouchableHighlight } from "react-native";
 import Button from "../components/button";
 import Input from "../components/input";
-import { login } from "../api/services";
+import request from "../api/services";
 
 class Login extends Component {
   constructor(props) {
@@ -11,13 +11,12 @@ class Login extends Component {
   }
 
   async handleSubmit() {
-    const response = await login(this.state.username, this.state.password, this.props.navigation);
-
-    if (response !== null) {
+    const response = await request.login(this.state.username, this.state.password, true);
+    if (response) {
       // save token to asynstorage
       // log user in to dashboard
       console.log(response);
-      this.props.navigation.navigate("AlertModal", { message: response.message });
+      this.props.navigation.navigate("Dashboard");
     }
   }
 

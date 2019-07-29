@@ -1,47 +1,98 @@
 import axios from "axios";
+import store from "../store/configureStore";
+import { showSpinner, closeSpinner, showModal, changeCode, changeMessage } from "../actions/app";
+import NetInfo from "@react-native-community/netinfo";
 
-const baseUrl = "http://reborn-sylvester.herokuapp.com/api";
+class RequestHandler {
+  constructor() {
+    this.httpClient = axios.create({
+      baseURL: "http://reborn-sylvester.herokuapp.com/api",
+      timeout: 1000 * 30
+    });
+  }
 
-const login = async (username, password, navigator) => {
-  const response = await makeRequest("post", "/customers/authenticate", { username, password });
-  return response;
-};
+  showSpinner() {
+    store.dispatch(showSpinner);
+  }
 
-const handleResponse = response => {
-  if (response.code === 0 && response.data !== undefined) {
-    return response.data;
-  } else if (response.code === 0 && response.data === undefined) {
-    // display success message
+  closeSpinner() {
+    store.dispatch(closeSpinner);
+  }
+
+  showModal() {
+    store.dispatch(showModal);
+  }
+
+  async getNetworkStatus() {
+    const state = await NetInfo.fetch();
+    return state.isConnected;
+  }
+
+  async makeRequest(type, url, data, displayModal = false) {
+    // Check if there is a connection available on the device
+    const networkStatus = await this.getNetworkStatus();
+    if (!networkStatus) {
+      const response = { code: 50, message: "No network connection" };
+      if (displayModal) {
+        store.dispatch(changeCode(response.code));
+        store.dispatch(changeMessage(response.message));
+        // get modals
+        this.showModal();
+      }
+      return response;
+    }
+
+    // make api call based on type and url
+    this.showSpinner();
+    const response = await this.getType(type, url, data);
+    this.closeSpinner();
+    if (displayModal) {
+      store.dispatch(changeCode(response.code));
+      store.dispatch(changeMessage(response.message));
+      // get modals
+      this.showModal();
+    }
+
     return response;
-  } else {
-    //display error message
+  }
+
+  async getType(type, url, data) {
+    try {
+      switch (type) {
+        case "get":
+          response = await this.httpClient.get(url);
+          return response.data;
+        case "post":
+          response = await this.httpClient.post(url, { ...data });
+          return response.data;
+        default:
+          break;
+      }
+    } catch (err) {
+      if (err.code === "ECONNABORTED") {
+        return { code: 10, message: "Timeout error" };
+      }
+      if (err.code === "Network Error") {
+        return { code: 10, message: "A connection could not be established. Please try again" };
+      }
+    }
+  }
+
+  // API CALLS
+  async login(username, password, modal) {
+    const response = await this.makeRequest("post", "/customers/authenticate", { username, password }, modal);
     return response;
   }
-};
 
-const makeRequest = async (type, url, data) => {
-  let response;
-  switch (type) {
-    case "get":
-      response = await axios.get(baseUrl + url);
-      break;
-    case "post":
-      response = await axios.post(baseUrl + url, { ...data });
-      break;
-    default:
-      break;
-  }
-  if (response.status === 500) {
-    // display error message
+  async resetPassword(email, modal) {
+    const response = await this.makeRequest("post", "/customers/password/reset", { email }, modal);
+    return response;
   }
 
-  if (response.status === 401) {
-    // stop execution and delete jwt
-    // popup message saying session expired
+  async registerCustomer(data, modal) {
+    const response = await this.makeRequest("post", "/customers", { ...data }, modal);
+    return response;
   }
+}
 
-  console.log(response);
-  return handleResponse(response.data);
-};
-
-module.exports = { login };
+export default new RequestHandler();

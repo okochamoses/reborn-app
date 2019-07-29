@@ -1,59 +1,93 @@
 import React, { Component } from "react";
-import { Modal, Text, View } from "react-native";
+import { Modal, Text, View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { connect } from "react-redux";
+
 import Button from "../components/button";
+import { hideModal } from "../actions/app";
+import colors from "../utils/colors";
 
-class AlertModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: true };
-  }
+const AlertModal = props => {
+  console.log(props);
+  const closeModal = () => {
+    props.dispatch(hideModal);
+    props.modal = false;
+  };
 
-  openModal() {
-    this.setState({ open: true });
-  }
+  const getIcon = () => {
+    let icon = "";
+    let color = colors.danger;
+    switch (props.code) {
+      case 0:
+        icon = "md-checkmark-circle-outline";
+        color = "green";
+        break;
+      case 10:
+        icon = "md-close-circle";
+        break;
+      case 30:
+        icon = "md-warning";
+        break;
+      case 50:
+        icon = "md-wifi";
+        break;
+      default:
+        return;
+    }
+    return <Icon name={icon} color={color} style={styles.icon} />;
+  };
 
-  closeModal() {
-    this.setState({ open: false });
-    this.props.navigation.goBack();
-  }
-  render() {
-    return (
-      <View style={{ backgroundColor: "transparent" }}>
-        <Modal animationType="slide" transparent={true} visible={this.state.open}>
-          <View style={{ backgroundColor: "rgba(0,0,0,0.5)", flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <View
-              style={{
-                width: 300,
-                flexDirection: "column",
-                backgroundColor: "#ffffff",
-                alignItems: "center",
-                justifyContent: "space-between",
-                paddingHorizontal: 20,
-                paddingBottom: 20,
-                paddingTop: 10
-              }}
-            >
-              <Icon name="md-close-circle" color="red" style={{ fontSize: 60 }}></Icon>
-              <Text
-                style={{
-                  fontFamily: "Montserrat-Regular",
-                  textAlign: "center",
-                  paddingBottom: 15,
-                  paddingTop: 10
-                }}
-              >
-                {this.props.navigation.getParam("message", "coco")}
-              </Text>
-              <View style={{ width: 200 }}>
-                <Button onPress={() => this.closeModal()} title="close" md dark></Button>
-              </View>
-            </View>
+  return (
+    <Modal animationType="slide" transparent={true} visible={props.modal}>
+      <View style={styles.container}>
+        <View style={styles.modal}>
+          {getIcon()}
+          <Text style={styles.text}>{props.message}</Text>
+          <View style={{ width: "65%" }}>
+            <Button onPress={() => closeModal()} title="close" md dark></Button>
           </View>
-        </Modal>
+        </View>
       </View>
-    );
-  }
-}
+    </Modal>
+  );
+};
 
-module.exports = AlertModal;
+const mapStateToProps = state => {
+  return {
+    modal: state.app.modal,
+    code: state.app.code,
+    message: state.app.message
+  };
+};
+
+export default connect(mapStateToProps)(AlertModal);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "rgba(0,0,0,0.5)",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  modal: {
+    width: 250,
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    paddingTop: 10,
+    borderRadius: 5
+  },
+  icon: { fontSize: 60 },
+  text: {
+    fontFamily: "Montserrat-Regular",
+    textAlign: "center",
+    paddingBottom: 15,
+    paddingTop: 10,
+    fontWeight: "500",
+    textTransform: "uppercase",
+    fontSize: 11
+  }
+});
