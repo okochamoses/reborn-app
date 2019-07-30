@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Modal, View, Text, TouchableHighlight, ScrollView } from "react-native";
+import { Modal, View, Text, TouchableHighlight, ScrollView, Image } from "react-native";
 import { connect } from "react-redux";
 
 import { showMenu, hideMenu } from "../../actions/app";
+import MenuItem from "./menuItem";
 
 const Menu = props => {
   console.log(props);
@@ -16,7 +17,7 @@ const Menu = props => {
         onPress={() => props.dispatch(hideMenu)}
       >
         <ScrollView style={{ flexGrow: 1, backgroundColor: "#000", marginRight: "20%", borderWidth: 1 }}>
-          <TouchableHighlight
+          {/* <TouchableHighlight
             style={{
               alignContent: "center",
               padding: 10,
@@ -25,9 +26,17 @@ const Menu = props => {
               paddingVertical: 15
             }}
             onPress={() => props.dispatch(hideMenu)}
-          >
-            <Text style={{ color: "#fff", fontSize: 16 }}>HOME</Text>
-          </TouchableHighlight>
+          > */}
+            <View style={{justifyContent: "center", alignItems: "center", height: 250,  flex: 1 }}>
+              <Image source={require("../../assets/images/logo.png")}  style={{ width: "60%" }}/>
+            </View>
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Services</MenuItem>
+            <MenuItem>History</MenuItem>
+            <MenuItem>Profile</MenuItem>
+            <MenuItem>Settings</MenuItem>
+            <MenuItem>Logout</MenuItem>
+          {/* </TouchableHighlight> */}
         </ScrollView>
       </TouchableHighlight>
     </Modal>
