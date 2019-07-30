@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderColor: "#f3f3f3"
   },
   icon: {
-    fontSize: 40,
+    fontSize: 35,
     color: colors.placeholderText
   },
   text: {

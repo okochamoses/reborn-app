@@ -8,7 +8,6 @@ import { hideModal } from "../actions/app";
 import colors from "../utils/colors";
 
 const AlertModal = props => {
-  console.log(props);
   const closeModal = () => {
     props.dispatch(hideModal);
     props.modal = false;
