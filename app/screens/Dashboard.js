@@ -48,16 +48,16 @@ class Dashboard extends Component {
           </Text>
           <View>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <IconTab name="md-car" text="mobile car wash" />
-              <IconTab name="md-phone-portrait" text="Barbing salon" />
-              <IconTab name="md-trash" text="Cleaning Services" />
-              <IconTab name="md-pizza" text="Breakfast & Lunch" />
+              <IconTab name="car" text="mobile car wash" />
+              <IconTab name="power-socket-uk" text="Electrician" />
+              <IconTab name="spray-bottle" text="Cleaning Services" />
+              <IconTab name="food" text="Breakfast & Lunch" />
             </View>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <IconTab name="md-car" text="mobile car wash" />
-              <IconTab name="md-phone-portrait" text="Barbing salon" />
-              <IconTab name="md-trash" text="Cleaning Services" />
-              <IconTab name="md-pizza" text="Breakfast & Lunch" />
+              <IconTab name="user" text="Hair Dresser" />
+              <IconTab name="phone" text="Barbing salon" />
+              <IconTab name="shopping" text="Clothes shopping" />
+              <IconTab name="wrench" text="Mechanic" />
             </View>
             {/* <View style={{ backgroundColor: "#fff", marginTop: 16, paddingHorizontal: 15 }}>
               <IconTab name="md-wifi" text="mobile car wash" />

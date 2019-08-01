@@ -61,11 +61,13 @@ export default class MyCarousel extends Component {
         <Carousel
           sliderWidth={screenWidth}
           sliderHeight={screenWidth * (3 / 4)}
-          itemWidth={screenWidth}
+          itemWidth={screenWidth - 40}
           data={this.state.entries}
           renderItem={this._renderItem}
-          //   hasParallaxImages={true}
+          hasParallaxImages={true}
           onSnapToItem={index => this.setState({ active: index })}
+          layout="default"
+          layoutCardOffset={50}
         />
         <Pagination
           dotsLength={this.state.entries.length}
@@ -83,8 +85,9 @@ export default class MyCarousel extends Component {
 
 const styles = StyleSheet.create({
   item: {
-    width: "100%",
+    width: screenWidth,
     height: screenWidth / 2
+    // padding: 20
   },
   imageContainer: {
     flex: 1,
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    width: "100%",
+    width: screenWidth - 30,
     height: screenWidth / 2,
     resizeMode: "contain"
   }

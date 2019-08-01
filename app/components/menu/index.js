@@ -16,27 +16,26 @@ const Menu = props => {
         }}
         onPress={() => props.dispatch(hideMenu)}
       >
-        <ScrollView style={{ flexGrow: 1, backgroundColor: "#000", marginRight: "20%", borderWidth: 1 }}>
-          {/* <TouchableHighlight
+        <ScrollView style={{ flexGrow: 1, backgroundColor: "#1D1D27", marginRight: "20%" }}>
+          <View
             style={{
-              alignContent: "center",
-              padding: 10,
-              borderWidth: 1,
-              borderBottomColor: "#232323",
-              paddingVertical: 15
+              justifyContent: "center",
+              alignItems: "center",
+              height: 200,
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.2)",
+              borderBottomWidth: 1,
+              borderBottomColor: "#2f2f2f"
             }}
-            onPress={() => props.dispatch(hideMenu)}
-          > */}
-            <View style={{justifyContent: "center", alignItems: "center", height: 250,  flex: 1 }}>
-              <Image source={require("../../assets/images/logo.png")}  style={{ width: "60%" }}/>
-            </View>
-            <MenuItem>Home</MenuItem>
-            <MenuItem>Services</MenuItem>
-            <MenuItem>History</MenuItem>
-            <MenuItem>Profile</MenuItem>
-            <MenuItem>Settings</MenuItem>
-            <MenuItem>Logout</MenuItem>
-          {/* </TouchableHighlight> */}
+          >
+            <Image source={require("../../assets/images/logo.png")} resizeMode={"contain"} style={{ width: "60%" }} />
+          </View>
+          <MenuItem iconName="home">Home</MenuItem>
+          <MenuItem iconName="cogs">Services</MenuItem>
+          <MenuItem iconName="history">History</MenuItem>
+          <MenuItem iconName="account">Profile</MenuItem>
+          <MenuItem iconName="settings">Settings</MenuItem>
+          <MenuItem iconName="power">Logout</MenuItem>
         </ScrollView>
       </TouchableHighlight>
     </Modal>
