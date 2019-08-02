@@ -1,106 +1,108 @@
 import React, { Component } from "react";
-import Carousel, { ParallaxImage, Pagination } from "react-native-snap-carousel";
-import { Dimensions, StyleSheet, View, Text, ImageBackground } from "react-native";
-import colors from "../../utils/colors";
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView } from "react-native";
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import { sliderWidth, itemWidth } from "./styles/SliderEntry.style";
+import SliderEntry from "./components/SliderEntry";
+import styles, { colors } from "./styles/index.style";
+import { ENTRIES1, ENTRIES2 } from "./static/entries";
 
-const { width: screenWidth } = Dimensions.get("window");
+const IS_ANDROID = Platform.OS === "android";
+const SLIDER_1_FIRST_ITEM = 1;
 
-export default class MyCarousel extends Component {
+export default class example extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entries: [
-        {
-          title: "The best haricuts",
-          thumbnail: "http://serviceme.ng/images/categories/barber.jpg",
-          body:
-            "Barbers selected based on their stunning work. We have the best barbers at their craft. Calling them artists won't be out of place"
-        },
-        {
-          title: "Spotless cars",
-          thumbnail: "http://serviceme.ng/images/categories/car_wash.jpg",
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        },
-        {
-          title: "Coupon codes",
-          thumbnail: "https://via.placeholder.com/150/0000FF/808080 ?Text=Item 1",
-          body:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt urna sed ligula tempus aliquam. Maecenas quis lacinia est. Sed."
-        }
-      ],
-      active: 0
+      slider1ActiveSlide: SLIDER_1_FIRST_ITEM
     };
   }
 
-  _renderItem({ item, index }, parallaxProps) {
+  _renderItem({ item, index }) {
+    return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
+  }
+
+  _renderItemWithParallax({ item, index }, parallaxProps) {
+    return <SliderEntry data={item} even={(index + 1) % 2 === 0} parallax={true} parallaxProps={parallaxProps} />;
+  }
+
+  _renderLightItem({ item, index }) {
+    return <SliderEntry data={item} even={false} />;
+  }
+
+  _renderDarkItem({ item, index }) {
+    return <SliderEntry data={item} even={true} />;
+  }
+
+  mainExample(number, title) {
+    const { slider1ActiveSlide } = this.state;
+
     return (
-      <View style={styles.item}>
-        <ImageBackground source={{ uri: item.thumbnail }} style={styles.imageContainer}>
-          <View style={{ backgroundColor: "rgba(0,0,0,0.5)", padding: 10 }}>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "Montserrat-Regular",
-                fontSize: 16,
-                fontWeight: "bold",
-                textTransform: "uppercase"
-              }}
-            >
-              {item.title}
-            </Text>
-            <Text style={{ color: "#fff", fontFamily: "Montserrat-Regular" }}>{item.body}</Text>
-          </View>
-        </ImageBackground>
+      <View style={styles.exampleContainer}>
+        {/* <Text style={styles.title}>{`Example ${number}`}</Text> */}
+        {/* <Text style={styles.subtitle}>{title}</Text> */}
+        <Carousel
+          ref={c => (this._slider1Ref = c)}
+          data={ENTRIES1}
+          renderItem={this._renderItemWithParallax}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          hasParallaxImages={true}
+          firstItem={SLIDER_1_FIRST_ITEM}
+          inactiveSlideScale={0.94}
+          inactiveSlideOpacity={0.7}
+          // inactiveSlideShift={20}
+          containerCustomStyle={styles.slider}
+          contentContainerCustomStyle={styles.sliderContentContainer}
+          loop={true}
+          loopClonesPerSide={2}
+          autoplay={true}
+          autoplayDelay={500}
+          autoplayInterval={3000}
+          onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
+        />
+        <Pagination
+          dotsLength={ENTRIES1.length}
+          activeDotIndex={slider1ActiveSlide}
+          containerStyle={styles.paginationContainer}
+          dotColor={"rgba(255, 255, 255, 0.92)"}
+          dotStyle={styles.paginationDot}
+          inactiveDotColor={colors.black}
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.6}
+          carouselRef={this._slider1Ref}
+          tappableDots={!!this._slider1Ref}
+        />
       </View>
+    );
+  }
+
+  get gradient() {
+    return (
+      <LinearGradient
+        colors={[colors.background1, colors.background2]}
+        startPoint={{ x: 1, y: 0 }}
+        endPoint={{ x: 0, y: 1 }}
+        style={styles.gradient}
+      />
     );
   }
 
   render() {
+    const example1 = this.mainExample(
+      1,
+      "Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots"
+    );
+
     return (
-      <View>
-        <Carousel
-          sliderWidth={screenWidth}
-          sliderHeight={screenWidth * (3 / 4)}
-          itemWidth={screenWidth - 40}
-          data={this.state.entries}
-          renderItem={this._renderItem}
-          hasParallaxImages={true}
-          onSnapToItem={index => this.setState({ active: index })}
-          layout="default"
-          layoutCardOffset={50}
-        />
-        <Pagination
-          dotsLength={this.state.entries.length}
-          activeDotIndex={this.state.active}
-          dotColor={colors.darkInput}
-          inactiveDotColor="grey"
-          inactiveDotScale={0.5}
-          inactiveDotOpacity={0.5}
-          style={{ paddingTop: 0 }}
-        />
-      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <StatusBar translucent={true} backgroundColor={"rgba(0, 0, 0, 0.3)"} barStyle={"light-content"} />
+          {/* {this.gradient} */}
+          <ScrollView style={styles.scrollview} scrollEventThrottle={200} directionalLockEnabled={true}>
+            {example1}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  item: {
-    width: screenWidth,
-    height: screenWidth / 2
-    // padding: 20
-  },
-  imageContainer: {
-    flex: 1,
-    marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
-    backgroundColor: "rgba(0,0,0,0.5)",
-    borderRadius: 0,
-    flexDirection: "column",
-    justifyContent: "flex-end"
-  },
-  image: {
-    ...StyleSheet.absoluteFillObject,
-    width: screenWidth - 30,
-    height: screenWidth / 2,
-    resizeMode: "contain"
-  }
-});

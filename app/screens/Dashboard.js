@@ -37,7 +37,7 @@ class Dashboard extends Component {
             style={{
               fontFamily: "Montserrat-Regular",
               fontSize: 11,
-              paddingBottom: 8,
+              paddingVertical: 8,
               paddingHorizontal: 15,
               color: "#3F3C48",
               textTransform: "uppercase",
@@ -54,7 +54,7 @@ class Dashboard extends Component {
               <IconTab name="food" text="Breakfast & Lunch" />
             </View>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <IconTab name="user" text="Hair Dresser" />
+              <IconTab name="spray-bottle" text="Hair Dresser" />
               <IconTab name="phone" text="Barbing salon" />
               <IconTab name="shopping" text="Clothes shopping" />
               <IconTab name="wrench" text="Mechanic" />
@@ -64,7 +64,7 @@ class Dashboard extends Component {
               <IconTab name="md-wifi" text="mobile car wash" />
             </View> */}
           </View>
-          <View style={{ paddingHorizontal: 15, paddingTop: 30 }}>
+          <View style={{ paddingHorizontal: 15, paddingVertical: 40 }}>
             <Button onPress={() => this.props.navigation.navigate("Services")} lg dark title="Request A Service" />
           </View>
           {/* <Footer /> */}
