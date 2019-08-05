@@ -93,6 +93,12 @@ class RequestHandler {
     const response = await this.makeRequest("post", "/customers", { ...data }, modal);
     return response;
   }
+
+  // SERVICES
+  async getServices(modal) {
+    const response = await this.makeRequest("get", "/services/", null);
+    return response;
+  }
 }
 
 export default new RequestHandler();

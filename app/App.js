@@ -1,4 +1,4 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import NavigationService from "./utils/NavigationService";
 import React, { Component } from "react";
 import { Provider } from "react-redux";
 import store from "./store/configureStore";

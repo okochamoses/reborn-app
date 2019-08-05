@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 15,
     height: 50,
-    marginTop: Platform.OS == "ios" ? 20 : 0 // only for IOS to give StatusBar Space
+    marginTop: Platform.OS == "ios" ? 20 : 20 // only for IOS to give StatusBar Space
   },
   icon: {
     fontSize: 28,

@@ -10,20 +10,15 @@ const DashboardNavigator = createStackNavigator({
     screen: DashboardScreen,
     navigationOptions: {
       header: props => {
-        return <Header navigation={props.navigation} />;
+        return <Header menuIcon={true} navigation={props.navigation} />;
       }
     }
   },
   Services: {
     screen: ServicesScreen,
     navigationOptions: {
-      title: "Services",
-      headerStyle: {
-        backgroundColor: "#1D1D27"
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold"
+      header: props => {
+        return <Header navigation={props.navigation} />;
       }
     }
   },

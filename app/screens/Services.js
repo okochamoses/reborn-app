@@ -1,35 +1,80 @@
 import React, { Component } from "react";
-import { View, ScrollView, Image, Text } from "react-native";
-import Button from "../components/button";
-import Footer from "../components/footer";
-import Input from "../components/input";
-import IconTab from "../components/iconTab";
-import request from "../api/services";
+import { View, StyleSheet, Image, Text, Dimensions, FlatList, TouchableHighlight } from "react-native";
+import ListItem from "../components/listItem";
+import RequestHandler from "../api/services";
+import colors from "../utils/colors";
+
+const { height, width } = Dimensions.get("window");
+9;
 
 class Services extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "dev.mosesokocha@gmail.com" };
+    this.state = {
+      email: "dev.mosesokocha@gmail.com",
+      services: []
+    };
   }
 
-  async handleSubmit() {
-    await request.resetPassword(this.state.email, true);
+  async componentDidMount() {
+    // Check if persisted in redux else call api
+    const res = await RequestHandler.getServices(false);
+    const services = res.data;
+    this.setState({ services: [...services] });
   }
 
   render() {
     return (
-      <ScrollView
+      <View
         contentContainerStyle={{
           flex: 1,
-          padding: 15,
           backgroundColor: "#E8ECF2",
-          flexDirection: "column",
-          justifyContent: "space-between"
+          flexDirection: "column"
         }}
-        style={{}}
-      ></ScrollView>
+      >
+        <Image
+          source={{
+            uri:
+              "https://www.kijiji.ca/kijijicentral/app/uploads/2017/10/5-Buyers_inspection_1280x692-1280x692-c-default.jpg"
+          }}
+          style={styles.placeholder}
+        />
+        <View style={styles.bottomContainer}>
+          <View>
+            <Text style={styles.header}>All Services</Text>
+          </View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={this.state.services}
+            renderItem={({ item }) => (
+              <TouchableHighlight
+                activeOpacity={0.9}
+                underlayColor="#FFF"
+                onPress={() => this.props.navigation.navigate("ServicePage", { service: item })}
+              >
+                <ListItem name={item.name} description={item.description} image={item.image} />
+              </TouchableHighlight>
+            )}
+          />
+        </View>
+      </View>
     );
   }
 }
 
 module.exports = Services;
+
+const styles = StyleSheet.create({
+  constainer: {},
+  bottomContainer: {
+    height: height / 1.25 - 65,
+    backgroundColor: "#fff",
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    marginTop: -30,
+    paddingTop: 30,
+    paddingHorizontal: 30
+  },
+  header: { fontSize: 22, paddingBottom: 10, fontFamily: "Zirkel Semibold" },
+  placeholder: { height: height / 4, width: width }
+});

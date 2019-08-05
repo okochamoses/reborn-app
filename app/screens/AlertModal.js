@@ -31,6 +31,7 @@ const AlertModal = props => {
         icon = "md-wifi";
         break;
       default:
+        icon = "md-close-circle";
         return;
     }
     return <Icon name={icon} color={color} style={styles.icon} />;

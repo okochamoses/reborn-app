@@ -20,8 +20,8 @@ class Dashboard extends Component {
     return (
       <ScrollView
         contentContainerStyle={{
-          flexGrow: 1,
-          backgroundColor: "#E8ECF2"
+          flexGrow: 1
+          // backgroundColor: "#E8ECF2"
           // flexDirection: "column",
           // justifyContent: "space-between"
         }}
@@ -30,6 +30,24 @@ class Dashboard extends Component {
         {/* Form Section */}
         <View>
           <PageCarousel />
+        </View>
+
+        <View style={{ paddingHorizontal: 15 }}>
+          <Text
+            style={{
+              fontFamily: "Montserrat-Regular",
+              fontSize: 11,
+              paddingVertical: 8,
+              // paddingHorizontal: 15,
+              color: "#3F3C48",
+              textTransform: "uppercase",
+              fontWeight: "bold"
+            }}
+          >
+            Request History
+          </Text>
+          <Text style={{ color: "#bebbbe" }}>You have not made any requests yet. Make a request now</Text>
+          <Text style={{ textAlign: "right" }}>...view all</Text>
         </View>
 
         <View style={{}}>
