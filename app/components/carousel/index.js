@@ -60,7 +60,7 @@ export default class example extends Component {
           autoplayInterval={3000}
           onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
         />
-        <Pagination
+        {/* <Pagination
           dotsLength={ENTRIES1.length}
           activeDotIndex={slider1ActiveSlide}
           containerStyle={styles.paginationContainer}
@@ -71,7 +71,7 @@ export default class example extends Component {
           inactiveDotScale={0.6}
           carouselRef={this._slider1Ref}
           tappableDots={!!this._slider1Ref}
-        />
+        /> */}
       </View>
     );
   }
@@ -96,7 +96,7 @@ export default class example extends Component {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <StatusBar translucent={true} backgroundColor={"rgba(0, 0, 0, 0.3)"} barStyle={"light-content"} />
+          {/* <StatusBar translucent={true} backgroundColor={"rgba(0, 0, 0, 0.3)"} barStyle={"light-content"} /> */}
           {/* {this.gradient} */}
           <ScrollView style={styles.scrollview} scrollEventThrottle={200} directionalLockEnabled={true}>
             {example1}

@@ -20,8 +20,8 @@ class Dashboard extends Component {
     return (
       <ScrollView
         contentContainerStyle={{
-          flexGrow: 1
-          // backgroundColor: "#E8ECF2"
+          flexGrow: 1,
+          backgroundColor: "#F4F4F4"
           // flexDirection: "column",
           // justifyContent: "space-between"
         }}
@@ -33,59 +33,34 @@ class Dashboard extends Component {
         </View>
 
         <View style={{ paddingHorizontal: 15 }}>
-          <Text
+          <Text style={{ fontSize: 16, fontFamily: "Montserrat-SemiBold", paddingBottom: 5 }}>Recent Services</Text>
+          <View
             style={{
-              fontFamily: "Montserrat-Regular",
-              fontSize: 11,
-              paddingVertical: 8,
-              // paddingHorizontal: 15,
-              color: "#3F3C48",
-              textTransform: "uppercase",
-              fontWeight: "bold"
+              backgroundColor: "#FFFFFF",
+              padding: 10,
+              paddingVertical: 20,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1
+              },
+              shadowOpacity: 0.22,
+              shadowRadius: 2.22,
+
+              elevation: 3
             }}
           >
-            Request History
-          </Text>
-          <Text style={{ color: "#bebbbe" }}>You have not made any requests yet. Make a request now</Text>
-          <Text style={{ textAlign: "right" }}>...view all</Text>
+            <Text style={{ color: "#A1A1A1", textAlign: "center", fontFamily: "Montserrat-Medium", fontSize: 13 }}>
+              You have not previously requested for any service
+            </Text>
+            <Text style={{ fontWeight: "bold", textAlign: "center", paddingTop: 10 }}>Make Request</Text>
+          </View>
         </View>
 
         <View style={{}}>
-          <Text
-            style={{
-              fontFamily: "Montserrat-Regular",
-              fontSize: 11,
-              paddingVertical: 8,
-              paddingHorizontal: 15,
-              color: "#3F3C48",
-              textTransform: "uppercase",
-              fontWeight: "bold"
-            }}
-          >
-            frequently used services
-          </Text>
-          <View>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <IconTab name="car" text="mobile car wash" />
-              <IconTab name="power-socket-uk" text="Electrician" />
-              <IconTab name="spray-bottle" text="Cleaning Services" />
-              <IconTab name="food" text="Breakfast & Lunch" />
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <IconTab name="spray-bottle" text="Hair Dresser" />
-              <IconTab name="phone" text="Barbing salon" />
-              <IconTab name="shopping" text="Clothes shopping" />
-              <IconTab name="wrench" text="Mechanic" />
-            </View>
-            {/* <View style={{ backgroundColor: "#fff", marginTop: 16, paddingHorizontal: 15 }}>
-              <IconTab name="md-wifi" text="mobile car wash" />
-              <IconTab name="md-wifi" text="mobile car wash" />
-            </View> */}
-          </View>
           <View style={{ paddingHorizontal: 15, paddingVertical: 40 }}>
             <Button onPress={() => this.props.navigation.navigate("Services")} lg dark title="Request A Service" />
           </View>
-          {/* <Footer /> */}
         </View>
       </ScrollView>
     );
