@@ -3,17 +3,15 @@ import { View, ScrollView, Image, Text } from "react-native";
 // import Carousel from 'react-native-snap-carousel';
 import PageCarousel from "../components/carousel";
 import Button from "../components/button";
-import IconTab from "../components/iconTab";
-import request from "../api/services";
+import Card from "../components/card";
+import Break from "../components/lineBreak";
+import Paragraph from "../components/text";
+import InfoCard from "../components/infoCard";
+import Rating from "../components/rating";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "dev.mosesokocha@gmail.com" };
-  }
-
-  async handleSubmit() {
-    await request.resetPassword(this.state.email, true);
   }
 
   render() {
@@ -22,44 +20,49 @@ class Dashboard extends Component {
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: "#F4F4F4"
-          // flexDirection: "column",
-          // justifyContent: "space-between"
         }}
         style={{}}
       >
-        {/* Form Section */}
         <View>
           <PageCarousel />
         </View>
-
-        <View style={{ paddingHorizontal: 15 }}>
-          <Text style={{ fontSize: 16, fontFamily: "Montserrat-SemiBold", paddingBottom: 5 }}>Recent Services</Text>
-          <View
-            style={{
-              backgroundColor: "#FFFFFF",
-              padding: 10,
-              paddingVertical: 20,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 1
-              },
-              shadowOpacity: 0.22,
-              shadowRadius: 2.22,
-
-              elevation: 3
-            }}
-          >
-            <Text style={{ color: "#A1A1A1", textAlign: "center", fontFamily: "Montserrat-Medium", fontSize: 13 }}>
+        <View style={{ paddingHorizontal: 20 }}>
+          <Card header="Recent Services" centered light>
+            <Paragraph style={{ paddingBottom: 10 }} light sm centered>
               You have not previously requested for any service
-            </Text>
-            <Text style={{ fontWeight: "bold", textAlign: "center", paddingTop: 10 }}>Make Request</Text>
-          </View>
-        </View>
+            </Paragraph>
+            <Paragraph bold>Make Request</Paragraph>
+          </Card>
 
-        <View style={{}}>
-          <View style={{ paddingHorizontal: 15, paddingVertical: 40 }}>
-            <Button onPress={() => this.props.navigation.navigate("Services")} lg dark title="Request A Service" />
+          <Break size={30} />
+
+          <Card header="Frequently Used Services" centered style={{paddingHorizontal: 0}}>
+            <View style={{flexDirection: "row", flex: 1, justifyContent: "space-between", width: "100%"}}>
+              <InfoCard image="https://alansautosrepairs.co.uk/assets/images/servicing.jpg" info="Mobile Mechanic"  height={100} width={"29%"}/>
+              <InfoCard image="https://cdn.thenigerianvoice.com/story/XGltYWdlc1xjb250ZW50XHU4cGN0MjFzcjRfbmlnZXJpYW5kaXNoZXMuanBnfDUwMHwzMDB8.jpg" info="Breakfast & Lunch" height={100} width={"29%"}/>
+              <InfoCard image="https://cdn.thenigerianvoice.com/story/XGltYWdlc1xjb250ZW50XHU4cGN0MjFzcjRfbmlnZXJpYW5kaXNoZXMuanBnfDUwMHwzMDB8.jpg" info="Car Wash" height={100} width={"29%"}/>
+            </View>
+          </Card>
+          
+          <Break size={50} />
+
+          {/* check if last ride was not rated and display rating card */}
+          <Card header="Rate Last Vendor" light>
+            <Paragraph style={{ paddingBottom: 10 }} light sm>
+              How was your last service with us?
+            </Paragraph>
+            <Rating />
+          </Card>
+
+          <View>
+            <View style={{ paddingVertical: 40 }}>
+              <Button
+                onPress={() => this.props.navigation.navigate("Services")}
+                lg
+                dark
+                title="Request A Service"
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
