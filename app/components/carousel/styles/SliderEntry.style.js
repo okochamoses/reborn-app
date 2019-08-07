@@ -42,7 +42,8 @@ export default StyleSheet.create({
     marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
     backgroundColor: "white",
     borderTopLeftRadius: entryBorderRadius,
-    borderTopRightRadius: entryBorderRadius
+    borderTopRightRadius: entryBorderRadius,
+    borderRadius: entryBorderRadius
   },
   imageContainerEven: {
     backgroundColor: colors.black
@@ -50,9 +51,8 @@ export default StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: "cover",
-    borderRadius: IS_IOS ? entryBorderRadius : 0,
-    borderTopLeftRadius: entryBorderRadius,
-    borderTopRightRadius: entryBorderRadius
+    borderRadius: entryBorderRadius,
+    resizeMode: "cover"
   },
   // image's border radius is buggy on iOS; let's hack it!
   radiusMask: {
@@ -67,19 +67,21 @@ export default StyleSheet.create({
     backgroundColor: colors.black
   },
   textContainer: {
+    position: "absolute",
+    bottom: 0,
     justifyContent: "center",
     paddingTop: 20 - entryBorderRadius,
     paddingBottom: 20,
     paddingHorizontal: 16,
-    backgroundColor: "white",
+    backgroundColor: "rgba(51, 51, 51, 0.8)",
     borderBottomLeftRadius: entryBorderRadius,
     borderBottomRightRadius: entryBorderRadius
   },
   textContainerEven: {
-    backgroundColor: colors.black
+    backgroundColor: "white"
   },
   title: {
-    color: colors.black,
+    color: "white",
     fontSize: 13,
     fontWeight: "bold",
     letterSpacing: 0.5
@@ -88,10 +90,9 @@ export default StyleSheet.create({
     color: "white"
   },
   subtitle: {
-    marginTop: 6,
-    color: colors.gray,
+    color: "white",
     fontSize: 12,
-    fontStyle: "italic"
+    fontFamily: "Montserrat-Regular"
   },
   subtitleEven: {
     color: "rgba(255, 255, 255, 0.7)"

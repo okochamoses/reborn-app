@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./styles";
 import { connect } from "react-redux";
 
@@ -12,13 +12,13 @@ const Header = props => {
   if (props.menuIcon === true) {
     leftHeader = (
       <TouchableOpacity onPress={() => props.dispatch(showMenu)}>
-        <Icon name="md-menu" style={styles.icon} />
+        <Icon name="menu" style={styles.icon} />
       </TouchableOpacity>
     );
   } else {
     leftHeader = (
       <TouchableOpacity onPress={() => props.navigation.goBack(null)} style={{ paddingRight: 20 }}>
-        <Icon name="ios-arrow-back" style={styles.icon} />
+        <Icon name="chevron-left" style={styles.icon} />
       </TouchableOpacity>
     );
   }
@@ -27,7 +27,7 @@ const Header = props => {
       {leftHeader}
 
       <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
-        <Icon name="md-notifications-outline" style={styles.icon} />
+        <Icon name="dots-horizontal" style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

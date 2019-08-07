@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import AuthNavigator from "./AuthNavigator";
 import DashboardNavigator from "./DrawerNavigator";
+import TabNavigator from "./TabNavigator";
 import AlertModal from "../screens/AlertModal";
 import Spinner from "../screens/Spinner";
 

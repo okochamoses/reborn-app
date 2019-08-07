@@ -22,7 +22,7 @@ export default class example extends Component {
   }
 
   _renderItemWithParallax({ item, index }, parallaxProps) {
-    return <SliderEntry data={item} even={(index + 1) % 2 === 0} parallax={true} parallaxProps={parallaxProps} />;
+    return <SliderEntry data={item} parallax={true} parallaxProps={parallaxProps} />;
   }
 
   _renderLightItem({ item, index }) {
