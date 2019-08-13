@@ -4,10 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./styles";
 import { connect } from "react-redux";
 
-import { showMenu } from "../../actions/app";
-
 const Header = props => {
-  console.log("HHHH", props);
   let leftHeader;
   if (props.menuIcon === true) {
     leftHeader = (

@@ -1,6 +1,7 @@
 import axios from "axios";
 import store from "../store/configureStore";
 import { showSpinner, closeSpinner, showModal, changeCode, changeMessage } from "../actions/app";
+import { increaseCount, reduceCount } from "../actions/api";
 import NetInfo from "@react-native-community/netinfo";
 
 class RequestHandler {
@@ -21,6 +22,14 @@ class RequestHandler {
 
   showModal() {
     store.dispatch(showModal);
+  }
+
+  increaseCount() {
+    store.dispatch(increaseCount);
+  }
+
+  reduceCount() {
+    store.dispatch(reduceCount);
   }
 
   async getNetworkStatus() {
@@ -58,16 +67,27 @@ class RequestHandler {
 
   async getType(type, url, data) {
     try {
+      let response;
       switch (type) {
         case "get":
-          response = await this.httpClient.get(url);
+          response = await this.httpClient.get(url, {
+            headers: { Authorization: "Bearer " + store.getState().auth.token }
+          });
+          console.log(response);
           return response.data;
         case "post":
-          response = await this.httpClient.post(url, { ...data });
+          response = await this.httpClient.post(url, {
+            headers: { Authorization: "Bearer " + store.getState().auth.token },
+            ...data
+          });
           return response.data;
         default:
           break;
-      }
+        }
+        if(response.status === 401) {
+
+        }
+        return response.data;
     } catch (err) {
       if (err.code === "ECONNABORTED") {
         return { code: 10, message: "Timeout error" };
@@ -91,6 +111,11 @@ class RequestHandler {
 
   async registerCustomer(data, modal) {
     const response = await this.makeRequest("post", "/customers", { ...data }, modal);
+    return response;
+  }
+
+  async getCustomer(modal) {
+    const response = await this.makeRequest("get", "/customers/profile", null);
     return response;
   }
 

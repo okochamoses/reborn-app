@@ -51,6 +51,7 @@ class Services extends Component {
                 activeOpacity={0.9}
                 underlayColor="#FFF"
                 onPress={() => this.props.navigation.navigate("ServicePage", { service: item })}
+                key={item.id}
               >
                 <ListItem name={item.name} description={item.description} image={item.image} />
               </TouchableHighlight>

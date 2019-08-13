@@ -9,10 +9,29 @@ import Paragraph from "../components/text";
 import InfoCard from "../components/infoCard";
 import Rating from "../components/rating";
 import Picker from "../components/picker";
+import storage from "../utils/asyncStorage";
+import { connect } from "react-redux";
+import { setToken, setUser } from "../actions/auth";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+  }
+
+  async componentDidMount() {
+    // Check if redux available
+    if (!this.props.token) {
+      const token = await storage.getData("token");
+      if (!token) {
+        this.props.navigation.navigate("Login");
+      } else {
+        this.props.dispatch(setToken(token));
+      }
+    }
+    const user = await storage.getData("user");
+    const jsonUser = await JSON.parse(user);
+    console.log(jsonUser);
+    this.props.dispatch(setUser(jsonUser));
   }
 
   render() {
@@ -32,7 +51,7 @@ class Dashboard extends Component {
             <Paragraph style={{ paddingBottom: 10 }} light sm centered>
               You have not previously requested for any service
             </Paragraph>
-            <Paragraph bold onPress={() => this.props.navigation.openDrawer()}>
+            <Paragraph bold onPress={() => this.props.navigation.navigate("Services")}>
               Make Request
             </Paragraph>
           </Card>
@@ -85,4 +104,10 @@ class Dashboard extends Component {
   }
 }
 
-module.exports = Dashboard;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);

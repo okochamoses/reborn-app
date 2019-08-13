@@ -33,8 +33,7 @@ export default DashboardTabNavigator = createBottomTabNavigator(
             iconName = `history`;
             break;
           case "Profile":
-            iconName = `ios-contact`;
-            IconComponent = Ionicons;
+            iconName = `account${focused ? "" : "-outline"}`;
             break;
           case "Settings":
             iconName = `ios-options`;

@@ -23,13 +23,6 @@ const DashboardNavigator = createStackNavigator({
         return <Header navigation={props.navigation} />;
       }
     }
-  },
-  Menu: {
-    screen: Menu,
-    navigationOptions: {
-      header: null,
-      title: "Menu"
-    }
   }
 });
 

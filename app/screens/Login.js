@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { View, ImageBackground, Image, Text, TouchableHighlight } from "react-native";
+import { View, ImageBackground, Image, Text } from "react-native";
+import { connect } from "react-redux";
 import Button from "../components/button";
 import Input from "../components/input";
 import request from "../api/services";
+import storage from "../utils/asyncStorage";
+import { setToken, setUser } from "../actions/auth";
 
 class Login extends Component {
   constructor(props) {
@@ -11,14 +14,22 @@ class Login extends Component {
   }
 
   async handleSubmit() {
-    const response = await request.login(this.state.username, this.state.password, true);
+    const response = await request.login(this.state.username, this.state.password, false);
+
     if (response) {
       // save token to asynstorage
+      storage.storeData("token", response.data);
+      this.props.dispatch(setToken(response.data));
+      const user = await request.getCustomer(false);
+      storage.storeData("user", JSON.stringify(user.data));
+      this.props.dispatch(setUser(user.data));
       // log user in to dashboard
-      console.log(response);
+      console.log(storage.getData("user"));
       this.props.navigation.navigate("Dashboard");
     }
   }
+
+  componentDidMount() {}
 
   render() {
     return (
@@ -74,4 +85,10 @@ class Login extends Component {
   }
 }
 
-module.exports = Login;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(Login);
