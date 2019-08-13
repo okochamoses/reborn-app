@@ -8,6 +8,7 @@ import Break from "../components/lineBreak";
 import Paragraph from "../components/text";
 import InfoCard from "../components/infoCard";
 import Rating from "../components/rating";
+import Picker from "../components/picker";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class Dashboard extends Component {
             <Paragraph style={{ paddingBottom: 10 }} light sm centered>
               You have not previously requested for any service
             </Paragraph>
-            <Paragraph bold onPress={() => this.props.navigation.navigate("Services")}>
+            <Paragraph bold onPress={() => this.props.navigation.openDrawer()}>
               Make Request
             </Paragraph>
           </Card>

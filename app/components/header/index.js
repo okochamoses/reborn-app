@@ -11,7 +11,7 @@ const Header = props => {
   let leftHeader;
   if (props.menuIcon === true) {
     leftHeader = (
-      <TouchableOpacity onPress={() => props.dispatch(showMenu)}>
+      <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
         <Icon name="menu" style={styles.icon} />
       </TouchableOpacity>
     );

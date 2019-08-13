@@ -10,7 +10,7 @@ export default ({ dark, light, white, sm, md, lg, bold, thin, centered, children
   white ? inlineStyle.push(styles.white) : null;
   sm ? inlineStyle.push(styles.sm) : null;
   md ? inlineStyle.push(styles.md) : null;
-  lg ? inlineStyle.push(styles.ld) : null;
+  lg ? inlineStyle.push(styles.lg) : null;
   bold ? inlineStyle.push(styles.bold) : null;
   thin ? inlineStyle.push(styles.thin) : null;
   centered ? inlineStyle.push(styles.centered) : null;
