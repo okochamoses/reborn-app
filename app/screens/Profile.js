@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, Text, Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import Paragraph from "../components/text";
+import Button from "../components/button";
 import Break from "../components/lineBreak";
 const { height, width } = Dimensions.get("window");
 
@@ -37,17 +38,31 @@ class Profile extends Component {
           <Break size={10} />
 
           <View style={{ borderBottomColor: "#f2f2f2", borderBottomWidth: 2 }} />
-          <View style={{ flexDirection: "row", padding: 20 }}>
-            <Break size={10} />
-            <Icon name="phone" size={20} style={{ paddingRight: 10 }} />
-            <Paragraph bold>Phone Number: </Paragraph>
-            <Paragraph>{this.props.user.phoneNumber}</Paragraph>
+            <Break size={20} />
+          <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
+            <Icon name="account" size={20} style={{ paddingRight: 10 }} />
+            <Paragraph bold>Fullname: </Paragraph>
+            <Paragraph>{`${this.props.user.firstName} ${this.props.user.lastName}`}</Paragraph>
           </View>
+            <Break size={20} />
           <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
             <Break size={10} />
             <Icon name="phone" size={20} style={{ paddingRight: 10 }} />
             <Paragraph bold>Phone Number: </Paragraph>
             <Paragraph>{this.props.user.phoneNumber}</Paragraph>
+          </View>
+            <Break size={20} />
+          <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
+            <Break size={10} />
+            <Icon name="email" size={20} style={{ paddingRight: 10 }} />
+            <Paragraph bold>Email: </Paragraph>
+            <Paragraph>{this.props.user.email}</Paragraph>
+          </View>
+          
+          <Break size={50} />
+
+          <View style={{ paddingHorizontal: 20 }}>
+            <Button dark centered title="Edit Profile" />
           </View>
         </View>
       </View>
