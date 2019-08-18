@@ -5,7 +5,8 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#BEBEBE",
     paddingHorizontal: 0,
-    paddingVertical: 10
+    paddingVertical: 10,
+    fontFamily: "OpenSans-Regular"
   },
   errorInput: {
     borderBottomWidth: 1,
@@ -13,7 +14,13 @@ export default StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 10
   },
+  errorMessage: {
+    color: "#FF2200",
+    fontSize: 9,
+    textAlign: "right"
+  },
   placeholder: {
-    color: "#BEBEBE"
+    color: "#939393",
+    fontFamily: "OpenSans-Regular"
   }
 });

@@ -1,21 +1,24 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Text, Dimensions, Picker } from "react-native";
+import { View, StyleSheet, Image, Text, Dimensions } from "react-native";
+import { connect } from "react-redux";
 import Button from "../components/button";
 import AddAddress from "../components/addAddress";
 import Paragraph from "../components/text";
 import Break from "../components/lineBreak";
+import Picker from "../components/picker";
+import DatePicker from "../components/datePicker";
 import RequestHandler from "../api/services";
-import colors from "../utils/colors";
 
 const { height, width } = Dimensions.get("window");
 
-class Services extends Component {
+class ServicePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       services: []
     };
     this.service = this.props.navigation.getParam("service", "Failed");
+    console.log(this.props);
   }
 
   async componentDidMount() {}
@@ -41,25 +44,26 @@ class Services extends Component {
             <Paragraph lg centered bold style={{ fontSize: 22 }}>
               {this.service.name}
             </Paragraph>
-            <Break size={20} />
-            <Paragraph>Select a service</Paragraph>
-            {/* <Picker selectedValue={"java"} style={{ width: "100%", borderBottomWidth: 1, borderBottomColor: "#000" }}>
-              <Picker.Item label="Moses" value="java1" />
-              <Picker.Item label="Okocha" value="java2" />
-              <Picker.Item label="Chukwutem" value="ja3va" />
-              <Picker.Item label="Oseh" value="java4" />
-              <Picker.Item label="Mo" value="java5" />
-              {}
-            </Picker> */}
-            {/* <Text style={styles.price}>₦{(this.service.price / 100).toFixed(2)}</Text> */}
+            <Break size={0} />
+            <Picker name="request" type="" list={this.service.subServices} title="What would you like?" />
+
+            <DatePicker name="time" title="When do you want this?" />
+
+            <Picker
+              name="address"
+              type="address"
+              list={this.props.user.addresses}
+              title="Choose address for delivery"
+            />
           </View>
           <View>
+            <Break size={20} />
             <Paragraph bold centered style={{ fontSize: 35 }}>
-              ₦2,400.00
+              ₦{(this.props.request.price / 100).toLocaleString("en-US", { minimumFractionDigits: 2 }) || "0.00"}
             </Paragraph>
           </View>
           <View style={{ paddingVertical: 20 }}>
-            <Button onPress={() => this.props.navigation.navigate("Services")} lg dark title="Get Service" />
+            <Button rounded onPress={() => console.log("REDUXX", this.props)} lg dark title="Get Service" />
           </View>
         </View>
       </View>
@@ -67,7 +71,17 @@ class Services extends Component {
   }
 }
 
-module.exports = Services;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user,
+    // request: state.request
+    request: state.request.request,
+    time: state.request.time,
+    address: state.request.address
+  };
+};
+
+export default connect(mapStateToProps)(ServicePage);
 
 const styles = StyleSheet.create({
   constainer: {},

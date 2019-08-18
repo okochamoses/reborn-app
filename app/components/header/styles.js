@@ -3,7 +3,7 @@ import colors from "../../utils/colors";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "#1D1D27",
+    backgroundColor: "#151515",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

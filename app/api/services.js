@@ -50,7 +50,7 @@ class RequestHandler {
       }
       return response;
     }
-
+    console.log("THIS IS GOING");
     // make api call based on type and url
     this.showSpinner();
     const response = await this.getType(type, url, data);
@@ -73,27 +73,27 @@ class RequestHandler {
           response = await this.httpClient.get(url, {
             headers: { Authorization: "Bearer " + store.getState().auth.token }
           });
-          console.log(response);
           return response.data;
         case "post":
           response = await this.httpClient.post(url, {
             headers: { Authorization: "Bearer " + store.getState().auth.token },
             ...data
           });
+          console.log("RES", response);
           return response.data;
         default:
           break;
-        }
-        if(response.status === 401) {
-
-        }
-        return response.data;
+      }
+      return response.data;
     } catch (err) {
       if (err.code === "ECONNABORTED") {
         return { code: 10, message: "Timeout error" };
       }
       if (err.code === "Network Error") {
         return { code: 10, message: "A connection could not be established. Please try again" };
+      }
+      if (err.response.status === 401) {
+        return { code: 10, message: "Your session has expired. Please login again" };
       }
     }
   }
@@ -106,6 +106,16 @@ class RequestHandler {
 
   async resetPassword(email, modal) {
     const response = await this.makeRequest("post", "/customers/password/reset", { email }, modal);
+    return response;
+  }
+
+  async changePassword(oldPassword, newPassword, username, modal) {
+    const response = await this.makeRequest(
+      "post",
+      "/customers/password/change",
+      { oldPassword, newPassword, username },
+      modal
+    );
     return response;
   }
 

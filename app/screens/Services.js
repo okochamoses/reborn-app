@@ -5,15 +5,11 @@ import RequestHandler from "../api/services";
 import colors from "../utils/colors";
 
 const { height, width } = Dimensions.get("window");
-9;
 
 class Services extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "dev.mosesokocha@gmail.com",
-      services: []
-    };
+    this.state = {};
   }
 
   async componentDidMount() {
@@ -46,6 +42,7 @@ class Services extends Component {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={this.state.services}
+            keyExtractor={item => item._id}
             renderItem={({ item }) => (
               <TouchableHighlight
                 activeOpacity={0.9}
